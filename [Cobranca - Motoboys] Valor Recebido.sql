@@ -20,7 +20,8 @@ SELECT
 		JOIN assignment_incidents AS ai ON ai.assignment_id = a.id
 		JOIN people AS p ON p.id = a.requestor_id
 		JOIN financial_receivable_titles AS fat ON fat.client_id = a.requestor_id AND fat.title LIKE '%FAT%'
-		JOIN financial_receipt_titles AS fatr ON fatr.financial_receivable_title_id = fat.id AND fatr.receipt_date >= DATE(a.conclusion_date) AND fatr.receipt_date <= cast(date_trunc('day', DATE(a.conclusion_date)+INTERVAL '4 day') as DATE)
+		JOIN financial_receipt_titles AS fatr ON fatr.financial_receivable_title_id = fat.id 
+			AND fatr.receipt_date >= DATE(a.conclusion_date) AND fatr.receipt_date <= cast(date_trunc('day', DATE(a.conclusion_date)+INTERVAL '4 day') as DATE)
 		
 	WHERE 
 		DATE(a.conclusion_date) BETWEEN '2023-01-01' AND DATE(curdate()) AND ai.incident_type_id IN (1287)
